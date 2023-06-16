@@ -307,7 +307,7 @@ class _PagarScreenState extends State<PagarScreen> {
                 items: cuentas.map<DropdownMenuItem<dynamic>>((dynamic cuenta) {
                   final nro = cuenta['nro'];
                   final bancoId = cuenta['banco_id'];
-                  final optionText = '$nro-$bancoId';
+                  final optionText = '$nro - $bancoId';
 
                   return DropdownMenuItem<dynamic>(
                     value: cuenta,
@@ -325,6 +325,19 @@ class _PagarScreenState extends State<PagarScreen> {
                 isExpanded: true, // Expandir el ancho del botón desplegable
               ),
             ),
+              if (selectedOption != null) ...[
+              const SizedBox(height: 16),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Saldo: ${selectedOption['saldo']}',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
             const SizedBox(height: 16),
             TextField(
               controller: montoController,
@@ -512,7 +525,7 @@ class _MovimientoScreenState extends State<MovimientoScreen> {
                   (dynamic cuenta) {
                     final nro = cuenta['nro'];
                     final bancoId = cuenta['banco_id'];
-                    final optionText = '$nro-$bancoId';
+                    final optionText = '$nro - $bancoId';
 
                     return DropdownMenuItem<dynamic>(
                       value: cuenta,
@@ -536,11 +549,24 @@ class _MovimientoScreenState extends State<MovimientoScreen> {
               onPressed: () {
                 if (selectedOption != null) {
                   final nroCuenta = selectedOption['nro'];
-                 obtenerMovimientos(nroCuenta);
+                  obtenerMovimientos(nroCuenta);
                 }
               },
               child: const Text('Obtener Movimientos'),
             ),
+            if (selectedOption != null) ...[
+              const SizedBox(height: 16),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Saldo: ${selectedOption['saldo']}',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
             const SizedBox(height: 16),
             Expanded(
               child: ListView.builder(
